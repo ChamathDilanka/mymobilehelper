@@ -1,0 +1,4 @@
+1. One Admin user is allocated for one type only. (Type wise). He do things in his domain.
+   (e.g/ Police Admin keneknam eyata pennanne Manage Users page 1y, Manage Police Stations Page 1y wiataray.)
+
+2. 

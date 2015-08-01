@@ -1,0 +1,18 @@
+ <style>
+      body { background-color:#CCC }
+      #map-outer {  height: 440px;
+   padding: 20px;
+border: 2px solid #CCC;
+margin-bottom: 20px;
+background-color:#FFF }
+  #map-container { height: 400px }
+  @media all and (max-width: 991px) {
+#map-outer  { height: 650px }
+}
+.input-group[class*="col-"] {
+    padding-right: 15px;
+    padding-left: 15px;
+    }
+
+    </style>
+

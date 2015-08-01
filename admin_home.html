@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<title>MobileHelp - Administrator</title>
+
+		<!-- Bootstrap Core CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Custom CSS -->
+		<link href="css/sb-admin.css" rel="stylesheet">
+
+		<!-- Navigation CSS -->
+		<link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet">
+    		<link href="css/navigation1.css" rel="stylesheet" type="text">
+
+		
+
+<!-- Morris Charts CSS -->
+		<link href="css/plugins/morris.css" rel="stylesheet">
+
+		<!-- Custom Fonts -->
+		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+	</head>
+
+	<body onload="onAdminHomeLoad()">
+
+		<div id="wrapper">
+
+			<!-- Navigation -->
+			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="admin_home.html">System Administrator</a>
+				</div>
+				<!-- Top Menu Items -->
+				<ul class="nav navbar-right top-nav">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><label id="user_name"> User Name </label><b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a class="confirmation" href="index.html"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+				<div class="collapse navbar-collapse navbar-ex1-collapse">
+					<ul class="nav navbar-nav side-nav">
+						<li class="active">
+							<a href="admin_home.html"><i class="glyphicon glyphicon-user"></i> Manage Users</a>
+						</li>
+						<li>
+							<a href="manage_police_stations.html"><i class="glyphicon glyphicon-bullhorn"></i> Manage Police Stations</a>
+						</li>
+						<li>
+							<a href="manage_ambulance_stations.html"><i class="glyphicon glyphicon-plus"></i> Manage Ambulance Stations</a>
+						</li>
+						<li>
+							<a href="manage_firebrigade_stations.html"><i class="glyphicon glyphicon-fire"></i> Manage Fire Brigade Stations</a>
+						</li>
+						<li>
+							<a class="confirmation" href="index.html"><i class="glyphicon glyphicon-log-out"></i> Log Out</a>
+						</li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</nav>
+
+			<section>
+            	<div ng-init="tab = 1" class="btn-group btn-group-justified grp" role="group" aria-label="...">
+		            <div ng-class="{active:tab===1}"  class="btn-group success " role="group">
+		                <button ng-click="tab = 1"  type="button" Style="left-margin:50px; right:margin:50px;"  class="btn btn-primary btn-sm btn-lg round">Add User</button>
+		            </div>
+		            <div ng-class="{active:tab===2}"  class="btn-group" role="group">
+		                <button ng-click="tab = 2"  type="button" class="btn btn-primary btn-lg btn-sm round">Search & Update</button>
+		            </div>
+		        </div>
+			</section>
+
+	<section class="row col-lg-12 col-sm-12">
+
+<!-------------This is for add users navigation--------------->
+
+		<ul ng-init="tab = 1">
+			
+			<br/><br/>
+			<div ng-show="tab === 1"> 
+				<form name="form_tab1">
+					<font color="White">Reg. ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </font><input type="text" name="regID" id="txt_regID" onkeyup="addUserBtnActivator()">
+					<br/>
+					<br/>
+					<font color="White">Full Name : </font><input type="text" name="fName" id="txt_fName" onkeyup="addUserBtnActivator()">
+					<br/>
+					<br/>
+					<br/>
+					<label><font color="White">Select Type of the Station User Allocated to :</font></label><br/>
+					<input type="radio" name="user_type" value="admin"><font color="White"> Administrator User</font>&nbsp;&nbsp;<br/>
+					<input type="radio" name="user_type" value="normal" checked><font color="White"> Staff User</font>&nbsp;&nbsp;<br/>
+					<br/>
+					<br/>
+					<font color="White">Station&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </font><input type="text" name="sname" id="txt_sname" onkeyup="addUserBtnActivator()">
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<label><font color="White">Enter a New Username and Password for the User :</font></label><br/>
+					<label><font color="White">(Note : Password can be changed by User later.)</font></label><br/>
+					<br/>
+					<br/>
+					<font color="White">User Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </font><input type="text" name="user_name" id="txt_un" onkeyup="addUserBtnActivator()">
+					<br/>
+					<br/>
+					<font color="White">Password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </font><input type="password" name="password1" id="txt_pw1" onkeyup="addUserBtnActivator()">
+					<br/>
+					<br/>
+					<font color="White">Confirm Password: </font><input type="password" name="password2" id="txt_pw2" onkeyup="addUserBtnActivator()">
+					<br/>
+					<br/>
+					<input type="button" value="Add User" id="btn_add_usr" onClick="addUser()"> <input type="button" value="Clear" id="btn_add_usr_cancel" onClick="clearFields()">
+				</form>
+			</div>
+
+<!----------This is for search & update user navigation--------------->
+
+			<div ng-show="tab === 2"> 
+				<form name="form_tab2">
+					<label><font color="White">Select Search Method : </font></label>
+					<input type="radio" name="search_op" id="id" checked onClick="search_box_name_setter1()"><font color="White"> By User ID</font>&nbsp;&nbsp;
+					<input type="radio" name="search_op" id="un"><font color="White" onClick="search_box_name_setter2()"> By Username</font>&nbsp;&nbsp;<br/>
+					<br/>
+					<br/>
+					<label id="search_box_lbl"><font color="White">Enter ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;</font></label><input type="text" name="search_value" id="txt_search_value"><input type="button" value="Search" id="btn_search">
+					<br/>
+					<br/>
+					<label><font color="White">Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</font></label>
+					<input type="text" name="post_value" id="txt_post_value" readonly>
+					<select name="edit_post_value" id="combo_post_value">
+						<option value="admin">Administrator</option>
+						<option value="normal">Staff User</option>
+					</select>
+					<br/>
+					<br/>
+					<label><font color="White">Station&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</font></label><input type="text" name="station_value" id="txt_station_value" onkeyup="updateBtnActivator()">
+					<br/>
+					<br/>
+					<label><font color="White">User Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</font></label><input type="text" name="un_value" id="txt_un_value">
+					<label id="lbl_un_warning"><font color="White">&nbsp;(User Name can not be changed!)</font></label>
+					<br/>
+					<br/>
+					<label><font color="White">Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</font></label>
+					<input type="text" name="status_value" id="txt_status_value" readonly>
+					<select name="edit_status_value" id="combo_status_value">
+						<option value="active">Active</option>
+						<option value="suspend">Suspend</option>
+					</select>
+					<br/>
+					<br/>
+					<label><font color="White">New Password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;</font></label><input type="password" name="password1" id="txt_pw1_value"  onkeyup="updateBtnActivator()" readonly>
+					<br/>
+					<br/>
+					<label><font color="White">Confirm Password :&nbsp;&nbsp;</font></label><input type="password" name="password2" id="txt_pw2_value"  onkeyup="passwordFieldChecker()" readonly>
+					<label id="lbl_pw_match"><font color="White"></font></label>
+					<br/>
+					<br/>
+					<input type="button" value="Edit" id="btn_edit" onClick="editBtnClick()"> <input type="button" value="Update" id="btn_update" onClick="updateBtnClick()"> <input type="button" value="Cancel" id="btn_cancel" onClick="cancelBtnClick()">
+				</form>
+			</div>
+			
+		</ul>		
+	</section>	
+
+		<!-- jQuery -->
+		<script src="js/jquery.js"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+		<script src="js/bootstrap.min.js"></script>
+
+		<!-- Morris Charts JavaScript -->
+		<script src="js/plugins/morris/raphael.min.js"></script>
+		<script src="js/plugins/morris/morris.min.js"></script>
+		<script src="js/plugins/morris/morris-data.js"></script>
+
+	</body>
+	
+	<script type="text/javascript">
+		var elems = document.getElementsByClassName('confirmation');
+		var confirmIt = function (e) {
+			if (!confirm('Are You Sure Want to Log Out?')) e.preventDefault();
+		};
+		for (var i = 0, l = elems.length; i < l; i++) {
+			elems[i].addEventListener('click', confirmIt, false);
+		}
+		
+		function search_box_name_setter1(){
+			document.getElementById("search_box_lbl").innerHTML = '<font color="White">Enter ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;</font>'; 
+			document.getElementById("id").value = checked;
+		}
+		
+		function search_box_name_setter2(){
+			document.getElementById("search_box_lbl").innerHTML = '<font color="White">Enter Username&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;</font>'; 
+			document.getElementById("un").value = checked;
+		}
+		
+		function onAdminHomeLoad(){
+			document.getElementById("txt_post_value").readonly = true;
+			document.getElementById("txt_station_value").readOnly = true;
+			document.getElementById("txt_un_value").readOnly = true;
+			document.getElementById("txt_status_value").readOnly = true;
+			document.getElementById("txt_pw1_value").readOnly = true;
+			document.getElementById("txt_pw2_value").readOnly = true;
+			document.getElementById("combo_post_value").style.display = "none";
+			document.getElementById("combo_status_value").style.display = "none";
+			document.getElementById("lbl_un_warning").style.visibility = "hidden";
+			document.getElementById("lbl_pw_match").style.visibility = "hidden";
+			document.getElementById("btn_update").style.visibility = "hidden";
+			document.getElementById("btn_cancel").style.visibility = "hidden";
+			document.getElementById("btn_update").disabled = true;
+			document.getElementById("btn_add_usr").disabled = true;
+		}
+		
+		function addUserBtnActivator(){
+			var v1 = document.getElementById("txt_regID").value.length;
+			var v2 = document.getElementById("txt_fName").value.length;
+			var v3 = document.getElementById("txt_sname").value.length;
+			var v4 = document.getElementById("txt_un").value.length;
+			var v5 = document.getElementById("txt_pw1").value.length;
+			var v6 = document.getElementById("txt_pw2").value.length;
+			
+			if(v1!=0 && v2!=0 && v3!=0 && v4!=0 && v5!=0 && v6!=0){
+				document.getElementById("btn_add_usr").disabled = false;
+			} else {
+				document.getElementById("btn_add_usr").disabled = true;
+			}
+		}
+		
+		function clearFields(){
+			document.getElementById("txt_regID").value = "";
+			document.getElementById("txt_fName").value = "";
+			document.getElementById("txt_sname").value = "";
+			document.getElementById("txt_un").value = "";
+			document.getElementById("txt_pw1").value = "";
+			document.getElementById("txt_pw2").value = "";
+			
+			document.getElementById("btn_add_usr").disabled = true;
+		}
+		
+		function addUser(){
+			var x;
+			if (confirm("Add this User?") == true) {
+				
+			} else {
+				
+			}
+		}
+		
+		function editBtnClick(){
+			document.getElementById("txt_post_value").style.display = "none";
+			document.getElementById("txt_station_value").readOnly = false;
+			document.getElementById("txt_status_value").style.display = "none";
+			document.getElementById("txt_pw1_value").readOnly = false;
+			document.getElementById("txt_pw2_value").readOnly = false;
+			document.getElementById("combo_status_value").style.visibility = "visible";
+			document.getElementById("combo_post_value").style.display = "";
+			document.getElementById("combo_status_value").style.display = "";
+			document.getElementById("lbl_un_warning").style.visibility = "visible";
+			document.getElementById("btn_search").style.visibility = "hidden";
+			document.getElementById("btn_edit").style.display = "none";
+			document.getElementById("btn_update").style.visibility = "visible";
+			document.getElementById("btn_cancel").style.visibility = "visible";
+			document.getElementById("btn_update").disabled = true;
+		}
+		
+		function cancelBtnClick(){
+			document.getElementById("txt_post_value").style.display = "";
+			document.getElementById("txt_station_value").readOnly = true;
+			document.getElementById("txt_status_value").style.display = "";
+			document.getElementById("txt_pw1_value").readOnly = true;
+			document.getElementById("txt_pw2_value").readOnly = true;
+			document.getElementById("combo_status_value").style.visibility = "hidden";
+			document.getElementById("combo_post_value").style.display = "none";
+			document.getElementById("combo_status_value").style.display = "none";
+			document.getElementById("lbl_un_warning").style.visibility = "hidden";
+			document.getElementById("lbl_pw_match").style.visibility = "hidden";
+			document.getElementById("btn_search").style.visibility = "visible";
+			document.getElementById("btn_edit").style.display = "";
+			document.getElementById("btn_update").style.visibility = "hidden";
+			document.getElementById("btn_cancel").style.visibility = "hidden";
+			document.getElementById("btn_update").disabled = true;
+		}
+		
+		function updateBtnClick(){
+			var x;
+			if (confirm("Update User Details?") == true) {
+				
+			} else {
+				
+			}
+		}
+		
+		function updateBtnActivator(){
+			document.getElementById("btn_update").disabled = false;
+		}
+		
+		function passwordFieldChecker(){
+			updateBtnActivator()
+			
+			var pw1 = document.getElementById("txt_pw1_value").value;
+			var pw2 = document.getElementById("txt_pw2_value").value;
+			var n = pw1.localeCompare(pw2);
+			
+			if(n != 0){
+				if(pw2.length == 0){
+					document.getElementById("lbl_pw_match").style.visibility = "hidden";
+					document.getElementById("btn_update").disabled = true;
+				} else {
+					document.getElementById("lbl_pw_match").style.visibility = "visible";
+					document.getElementById("lbl_pw_match").innerHTML = '<font color="Red">Passwords do not match!</font>';
+					document.getElementById("btn_update").disabled = true;
+				}
+			} else if(n == 0) {
+				document.getElementById("lbl_pw_match").style.visibility = "hidden";
+				document.getElementById("btn_update").disabled = false;
+			}
+		}
+	</script>
+
+</html>
